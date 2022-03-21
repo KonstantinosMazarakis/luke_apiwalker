@@ -6,11 +6,11 @@ import { useParams } from "react-router";
 const Api = () =>{
 let {topic,id,} = useParams()
 let [noAPI,setNoAPI] = useState(false)
-let [report,setReport] = useState([])
+let [report,setReport] = useState({})
 console.log("topic is", topic)
 
 
-    useEffect(()=>{
+    useEffect(()=>{ //protects any code inside the useeffeect callback from running again on the re-rendering of a component
         setNoAPI(false)
         console.log(`making request to this link: https://swapi.dev/api/${topic}/${id}`)
         axios.get(`https://swapi.dev/api/${topic}/${id}`)
@@ -23,7 +23,7 @@ console.log("topic is", topic)
             console.log("error 404... no API found." + err);
       });
 
-    },[topic,id])
+    },[topic,id]) //dependency array
     return <>
     <div>
         {noAPI == true?
